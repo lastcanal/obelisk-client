@@ -57,38 +57,3 @@ describe('api fetchSpend()', function() {
             assert.equal(err.code, error.service_stopped);
         }));
 });
-
-describe('cli fetch-spend', function() {
-
-    it('should break if hash is not supplied', ObTest()
-        .cli('fetch-spend')
-        .assertError('Invalid transaction hash.'));
-
-    it('should break if bad hash is supplied', ObTest()
-        .cli('fetch-spend $#!+')
-        .assertError('Invalid transaction hash.'));
-
-    it('should break if index is not supplied', ObTest()
-        .cli('fetch-spend ' + outhash)
-        .assertError('Invalid transaction index.'));
-
-    it('should break if bad index is supplied', ObTest()
-        .cli('fetch-spend ' + outhash + ' $#!+')
-        .assertError('Invalid transaction index.'));
-
-    var checkSuccess = function(err, stdout, stderr) {
-        assert.equal(err, 0);
-        assert.equal(stdout, spendhash + ':' + spendix + '\n');
-        assert.equal(stderr, '');
-    };
-
-    it('should get spend input given outpoint', ObTest()
-        .cli('fetch-spend ' + outhash + ' ' + outix)
-        .respond(respondSuccess)
-        .assert(checkSuccess));
-
-    it('should report server error', ObTest()
-        .cli('fetch-spend ' + outhash + ' ' + outix)
-        .respond(makeResponse(error.service_stopped))
-        .assertError(error.service_stopped));
-});

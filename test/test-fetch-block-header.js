@@ -40,30 +40,3 @@ describe('api fetchBlockHeader()', function() {
         .respond(respondSuccess)
         .assert(checkSuccess));
 });
-
-describe('cli fetch-block-header', function() {
-
-    it('should break if hash or height is not supplied', ObTest()
-        .cli('fetch-block-header')
-        .assertError('Invalid block index.'));
-
-    it('should break if bad hash or height is supplied', ObTest()
-        .cli('fetch-block-header $#!+')
-        .assertError('Invalid block index.'));
-
-    var checkSuccess = function(err, stdout, stderr) {
-        assert.equal(err, 0);
-        assert.equal(stdout, header + '\n');
-        assert.equal(stderr, '');
-    };
-
-    it('should get block header by height', ObTest()
-        .cli('fetch-block-header ' + height)
-        .respond(respondSuccess)
-        .assert(checkSuccess));
-
-    it('should get block header by hash', ObTest()
-        .cli('fetch-block-header ' + hash)
-        .respond(respondSuccess)
-        .assert(checkSuccess));
-});

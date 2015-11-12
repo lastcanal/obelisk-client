@@ -51,30 +51,3 @@ describe('api fetchBlockTransactionHashes()', function() {
         .respond(respondSuccess)
         .assert(checkSuccess));
 });
-
-describe('cli fetch-block-transaction-hashes', function() {
-
-    it('should break if hash is not supplied', ObTest()
-        .cli('fetch-block-transaction-hashes')
-        .assertError('Invalid block index.'));
-
-    it('should break if bad hash is supplied', ObTest()
-        .cli('fetch-block-transaction-hashes $#!+')
-        .assertError('Invalid block index.'));
-
-    var checkSuccess = function(err, stdout, stderr) {
-        assert.equal(err, 0);
-        assert.equal(column(stdout, 0), '8f6e');
-        assert.equal(stderr, '');
-    };
-
-    it('should fetch transaction hashes by block height', ObTest()
-        .cli('fetch-block-transaction-hashes ' + height)
-        .respond(respondSuccess)
-        .assert(checkSuccess));
-
-    it('should fetch transaction hashes by block hash', ObTest()
-        .cli('fetch-block-transaction-hashes ' + blkhash)
-        .respond(respondSuccess)
-        .assert(checkSuccess));
-});

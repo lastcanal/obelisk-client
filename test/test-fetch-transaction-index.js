@@ -35,25 +35,3 @@ describe('api fetchTransactionIndex()', function() {
             assert.equal(check_index, txindex);
         }));
 });
-
-describe('cli fetch-transaction-index', function() {
-
-    it('should break if hash is not supplied', ObTest()
-        .cli('fetch-transaction-index')
-        .assertError('Invalid transaction hash.'));
-
-    it('should break if bad hash is supplied', ObTest()
-        .cli('fetch-transaction-index $#!+')
-        .assertError('Invalid transaction hash.'));
-
-    var checkSuccess = function(err, stdout, stderr) {
-        assert.equal(err, 0);
-        assert.equal(stdout, height + ' ' + txindex + '\n');
-        assert.equal(stderr, '');
-    };
-
-    it('should get transaction data by hash', ObTest()
-        .cli('fetch-transaction-index ' + txhash)
-        .respond(respondSuccess)
-        .assert(checkSuccess));
-});

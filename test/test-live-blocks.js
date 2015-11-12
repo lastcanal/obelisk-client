@@ -63,18 +63,3 @@ describe('api liveBlocks()', function() {
         }, 30);
     });
 });
-
-describe('cli live-blocks', function() {
-
-    it('should receive blocks', function(done) {
-        testLiveCli('live-blocks', [block0, block1],
-            function(err, stdout, stderr) {
-                assert.equal(err, 143); // SIGTERM
-                // console.log('stdout', stdout);
-                assert.equal(stdout.length, 386);
-                assert.equal(stdout.substr(100, 20), '12b27ac72c3e67768f61');
-                assert.equal(stderr, '');
-                done();
-            });
-    });
-});

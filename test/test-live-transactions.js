@@ -39,18 +39,3 @@ describe('api liveTransactions()', function() {
         }, 30);
     });
 });
-
-describe('cli live-transactions', function() {
-
-    it('should receive transactions', function(done) {
-        testLiveCli('live-tx', [tx0, tx1],
-            function(err, stdout, stderr) {
-                assert.equal(err, 143); // SIGTERM
-                // console.log('stdout', stdout);
-                assert.equal(stdout.length, 678);
-                assert.equal(stdout.substr(100, 20), '5468652054696d657320');
-                assert.equal(stderr, '');
-                done();
-            });
-    });
-});

@@ -30,21 +30,3 @@ describe('api fetchLastHeight()', function() {
             assert.equal(err.code, error.service_stopped);
         }));
 });
-
-
-describe('cli fetch-last-height', function() {
-
-    it('should get last height', ObTest()
-        .cli('fetch-last-height ' + height)
-        .respond(makeResponse(0, height))
-        .assert(function(err, stdout, stderr) {
-            assert.ifError(err);
-            assert.equal(stdout, '' + height + '\n');
-            assert.equal(stderr, '');
-        }));
-
-    it('should report server error', ObTest()
-        .cli('fetch-last-height')
-        .respond(makeResponse(error.service_stopped))
-        .assertError(error.service_stopped));
-});

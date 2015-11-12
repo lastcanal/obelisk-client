@@ -32,23 +32,3 @@ describe('api fetchBlockHeight()', function() {
             assert.equal(check_height, height);
         }));
 });
-
-describe('cli fetch-block-height', function() {
-
-    it('should break if hash is not supplied', ObTest()
-        .cli('fetch-block-height')
-        .assertError('Invalid block hash.'));
-
-    it('should break if bad hash is supplied', ObTest()
-        .cli('fetch-block-height $#!+')
-        .assertError('Invalid block hash.'));
-
-    it('should get block height by hash', ObTest()
-        .cli('fetch-block-height ' + hash)
-        .respond(respondSuccess)
-        .assert(function(err, stdout, stderr) {
-            assert.ifError(err);
-            assert.equal(stdout, '' + height + '\n');
-            assert.equal(stderr, '');
-        }));
-});
